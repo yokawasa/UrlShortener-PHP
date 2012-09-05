@@ -34,6 +34,9 @@ Once you've set up your Windows Azure Website and found your MySQL database conn
 		private $db_password = 'phptestuser';
 		private $db_name     = 'shorty';
 
+#Acknowledgements
+The source code for this site is based off of walkthrough for Silex.  [You can read more about the original site here](http://sf.khepin.com/2011/04/a-first-silex-project/).
+
 ## Contact
 
 For additional questions or feedback, please contact the [team](mailto:chrisner@microsoft.com).
