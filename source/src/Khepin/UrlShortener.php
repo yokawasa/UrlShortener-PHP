@@ -25,10 +25,16 @@ class UrlShortener {
     private $url_file = '';
 
     //Local
+
+//yoichika
     private $db_server = 'localhost';
-    private $db_user   = 'phptestuser';
-    private $db_password = 'phptestuser';
-    private $db_name     = 'shorty';
+    private $db_user   = 'root';
+    private $db_password = 'asdba3337';
+    private $db_name     = 'test';
+    //private $db_server = 'localhost';
+    //private $db_user   = 'phptestuser';
+    //private $db_password = 'phptestuser';
+    //private $db_name     = 'shorty';
     
 
     //Used to make sure regex's are valid
@@ -48,7 +54,11 @@ class UrlShortener {
 
         mysql_select_db($this->db_name, $con);
 
-        $result = mysql_query("SELECT Name, Url FROM Url");
+        // [note]
+        // Modifed to use lower case for table name since Database and table names are 
+        // not case sensitive in Windows, but case sensitive in most varieties of Unix.
+        //$result = mysql_query("SELECT Name, Url FROM Url");
+        $result = mysql_query("SELECT Name, Url FROM url");
 
         while($row = mysql_fetch_array($result))
           {
@@ -89,7 +99,11 @@ class UrlShortener {
 
         mysql_select_db($this->db_name, $con);
 
-        $sqlInsert = "INSERT into URL (Name, Url) values ('$url_slug', '$url')";        
+        // [note]
+        // Modifed to use lower case for table name since Database and table names are
+        // not case sensitive in Windows, but case sensitive in most varieties of Unix.
+        //$sqlInsert = "INSERT into URL (Name, Url) values ('$url_slug', '$url')";        
+        $sqlInsert = "INSERT into url (Name, Url) values ('$url_slug', '$url')";        
 
         if (!mysql_query($sqlInsert,$con))
           {
