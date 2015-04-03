@@ -20,10 +20,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**  Bootstraping */
-require_once __DIR__.'/../vendor/Silex/silex.phar';
+//require_once __DIR__.'/../vendor/Silex/silex.phar';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
-$app['autoloader']->registerNamespaces(array('Khepin' => __DIR__,));
+//[note]
+// The autoloader has been removed from Silex. It is recommended that you use
+// Composer to manage your dependencies and handle your autoloading.
+// See http://getcomposer.org for more information.
+//$app['autoloader']->registerNamespaces(array('Khepin' => __DIR__,));
 $app->register(new Khepin\ShortenerExtension(), array('url_file_name'  =>  __DIR__.'/../resources/urls.ini'));
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
 'twig.path' => __DIR__.'/templates',
@@ -81,12 +86,13 @@ $app->match('/api-getall', function () use ($app){
     return $app->json($response, 200);
 });
 
+
 /** Echos out the full URL for a SLUG */
 $app->get('/{url_slug}',function($url_slug) use($app){
     
     //NOTE:  switch the commenting on these lines and instead of printing out the URL, users will get redirected
-    echo $app['shortener']->get($url_slug);
-	//return $app->redirect($app['url_service']->get($url_slug));
+    //echo $app['shortener']->get($url_slug);
+    return $app->redirect($app['shortener']->get($url_slug));
 });
 
 /** Shows a view of all the URLs and their Slugs */
@@ -97,6 +103,20 @@ $app->get('/view/list', function() use($app){
 /** Adds a URL via query string parameters alone */
 $app->get('/add/{key}/{url_slug}', function($url_slug, $key) use ($app){
     //Check that the key sent over is valid
+    if($app['key'] != $key){
+        throw new Exception('Invalid key');
+    }
+    $app['shortener']->add($url_slug, $app['request']->get('url'));
+    return $app['twig']->render('add.html.twig', array(
+        'url_slug'  =>  $url_slug,
+        'url'  =>  $app['request']->get('url')));
+});
+
+/** Adds a URL via HTML form post */
+$app->post('/form-add', function() use ($app){
+    $key = $app['request']->get('key');
+    $url_slug = $app['request']->get('url_slug');
+   //Check that the key sent over is valid
     if($app['key'] != $key){
         throw new Exception('Invalid key');
     }
@@ -128,8 +148,6 @@ $app->match('/api-add', function (Request $request) use ($app){
     }    
     return $app->json($response, 201);
 });
-
-
 
 
 /**  Gets the details for a single URL */
