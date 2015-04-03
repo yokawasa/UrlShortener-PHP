@@ -1,15 +1,35 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-<h1>Welcome to Shorty</h1>
-<h2 >A URL Shortener Based On Silex (and TSUSBOS)</h2>
-<p >To add a new url to be shortened, go to a url formed like this:
-    <pre >http://shortener.com/goog?url=http://www.google.com </pre>
-    After this, visiting the url
-    <pre >http://shortener.com/goog</pre>
-    will redirect the user to http://www.google.com .
-</p >
+<h1>Welcome to Shorty (A URL Shortener)</h1>
+
+<form method="post" action="form-add">
+<table border=0>
+<tr><td>Paste a link to shorten it:</td></tr>
+<tr><td><input name="url" placeholder="http://www.microsoft.com" size=70>
+</td></tr>
+<tr><td>
+Custom alias:&nbsp; http://yourdomain.com/<input name="url_slug" placeholder="ms" size=6>&nbsp;
+</td></tr>
+<tr><td>
+<input id="button" name="SHORTEN" type="submit" value="Shorten" style="width: 450px; height: 20px;" >
+</td></tr>
+</table>
+<input name="key" value="my_key" type="hidden">
+</form>
+
+<p>
+An example:
+<pre >
+Turn this URL:
+https://www.youtube.com/channel/UC0m-80FnNY2Qb7obvTL_2fA
+into this shorten URL:
+http://yourdomain.com/ch  (ch=&lt;alias&gt;)
+which will redirect the user to the long URL!
+</pre>
+</p>
+
 <p >
-    You can <a href="view/list">view all available urls on this site here.</a>
+You can <a href="view/list">view all available urls on this site here.</a>
 </p>
 {% endblock %}
