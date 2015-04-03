@@ -26,5 +26,11 @@ class ShortenerExtension implements ServiceProviderInterface {
             return new UrlShortener($app['url_file_name']);
         });
     }
+    
+    //[note]
+    // Added implementation of function boot(Application $app) because
+    // Class Khepin\\ShortenerExtension contains 1 abstract method and must
+    // therefore be declared abstract or implement the remaining methods. 
+    public function boot(Application $app){}
 }
 ?>
