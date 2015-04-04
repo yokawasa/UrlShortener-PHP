@@ -29,7 +29,7 @@ class UrlShortener {
 //yoichika
     private $db_server = 'localhost';
     private $db_user   = 'root';
-    private $db_password = 'asdba3337';
+    private $db_password = 'P@ssw0rd';
     private $db_name     = 'test';
     //private $db_server = 'localhost';
     //private $db_user   = 'phptestuser';
