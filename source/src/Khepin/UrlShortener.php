@@ -26,16 +26,10 @@ class UrlShortener {
 
     //Local
 
-//yoichika
-    private $db_server = 'localhost';
-    private $db_user   = 'root';
-    private $db_password = 'P@ssw0rd';
-    private $db_name     = 'test';
-    //private $db_server = 'localhost';
-    //private $db_user   = 'phptestuser';
-    //private $db_password = 'phptestuser';
-    //private $db_name     = 'shorty';
-    
+    private $db_server = '<__DB_SERVER__>';
+    private $db_user   = '<__DB_USER__>';
+    private $db_password = '<__DB_PASSWORD__>';
+    private $db_name     = '<__DB_NAME__>';
 
     //Used to make sure regex's are valid
     const url_regex = '^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?^';
